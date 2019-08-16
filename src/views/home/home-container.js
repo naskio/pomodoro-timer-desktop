@@ -1,5 +1,4 @@
 import React from "react";
-import {speak, initTts} from "../../utils/tts";
 import View from "./home-view";
 import Timer from '../../utils/timer';
 import {DEFAULT_BREAK_TIME, DEFAULT_ROUND_TIME, DEFAULT_ROUNDS, DEFAULT_TASK} from "../../config/config";
@@ -17,15 +16,17 @@ const initialState = {
     taskDescription: DEFAULT_TASK,
 };
 
+const notify = (message) => {
+    return new Notification('Promodoro Timer', {
+        body: message,
+    });
+};
+
 class Component extends React.Component {
     constructor(props) {
         super(props);
         this.state = initialState;
         this.timer = new Timer(1000, this.secondAction);
-    }
-
-    componentDidMount() {
-        initTts();
     }
 
     componentWillUnmount() {
@@ -56,7 +57,7 @@ class Component extends React.Component {
             subtitle: taskDescription,
         });
         this.timer.start();
-        speak('Start working');
+        notify('Start working');
     };
     pauseOnPress = () => {
         this.setState({
@@ -93,13 +94,13 @@ class Component extends React.Component {
                     title: `Round ${roundNumber + 1}`,
                     subtitle: taskDescription,
                 });
-                speak(`Round ${roundNumber + 1} has started`);
+                notify(`Round ${roundNumber + 1} has started`);
             } else {
                 if (roundNumber >= numberOfRounds) {
                     // the end of all rounds
                     this.setState({remaining: 0, step: 4, title: 'Congratulations!', subtitle: 'You have finished'});
                     this.timer.stop();
-                    speak('Congratulations, you have finished');
+                    notify('Congratulations, you have finished');
                 } else {
                     // start of a break, end of a round
                     this.setState({
@@ -108,7 +109,7 @@ class Component extends React.Component {
                         title: 'Take a break',
                         subtitle: '',
                     });
-                    speak('Take a break');
+                    notify('Take a break');
                 }
             }
         } else {

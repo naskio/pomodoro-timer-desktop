@@ -2,8 +2,11 @@
   "name": "pomodoro-timer",
   "version": "0.1.0",
   "private": false,
+  "main": "src/electron.js",
+  "homepage": "./",
   "dependencies": {
     "bootstrap": "^4.3.1",
+    "electron-is-dev": "^1.1.0",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
@@ -16,7 +19,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -33,5 +37,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "electron": "^6.0.2"
+  }
 }
