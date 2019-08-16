@@ -18,6 +18,7 @@ template/src/__tests__/__snapshots__/
 
 # production
 /build
+/dist
 
 # misc
 .DS_Store

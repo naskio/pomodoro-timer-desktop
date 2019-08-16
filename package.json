@@ -1,9 +1,11 @@
 {
   "name": "pomodoro-timer",
+  "description": "\"Pomodoro Timer\" is a tool that uses the pomodoro technique \"a time management technique\" to help you managing your time better.",
   "version": "0.1.0",
   "private": false,
-  "main": "src/electron.js",
+  "main": "public/electron.js",
   "homepage": "./",
+  "license": "GPL-3.0",
   "dependencies": {
     "bootstrap": "^4.3.1",
     "electron-is-dev": "^1.1.0",
@@ -20,7 +22,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\""
+    "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "postinstall": "electron-builder install-app-deps",
+    "preelectron-pack": "yarn run build",
+    "electron-pack": "electron-builder -mw",
+    "test-pack": "electron-builder --dir"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -39,5 +45,42 @@
   },
   "devDependencies": {
     "electron": "^6.0.2"
+  },
+  "author": {
+    "name": "Mehdi Nassim KHODJA",
+    "email": "fm_khodja@esi.dz",
+    "url": "https://devpost.com/MehdiNassim"
+  },
+  "build": {
+    "appId": "com.mehdinassim.promodoro",
+    "productName": "Promodoro Timer",
+    "copyright": "Copyright © 2019 ${author}",
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "src/assets/appIcons/256x256.png"
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "AppImage"
+      ],
+      "icon": "src/assets/appIcons/256x256.png"
+    },
+    "files": [
+      "public/electron.js",
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "src/assets/appIcons"
+    },
+    "publish": {
+      "provider": "github",
+      "repo": "promodoro-timer-desktop",
+      "owner": "MehdiNassim"
+    }
   }
 }
