@@ -44,7 +44,7 @@
     ]
   },
   "devDependencies": {
-    "electron": "^6.0.2"
+    "electron": "^11.5.0"
   },
   "author": {
     "name": "Mehdi Nassim KHODJA",
